@@ -1,0 +1,37 @@
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew :app_pojavlauncher:assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: SharkLauncher-debug
+          path: app_pojavlauncher/build/outputs/apk/debug/*.apk
