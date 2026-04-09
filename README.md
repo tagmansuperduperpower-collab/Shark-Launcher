@@ -26,20 +26,52 @@
 
 ## ✨ Features
 
-- 🚀 Auto performance optimization
-- 📱 Auto device detection
-- 🖥️ Force landscape mode
-- ✨ Smooth UI animations
-- ⚙️ Smart preset (Low/Mid/High end)
-- 🎮 Optimized for Minecraft Java
+- 🚀 Automatic performance optimization
+- 📱 Automatic device detection
+- ⚙️ Smart presets (Low / Mid / High end)
+- 🎮 Fully optimized for Minecraft Java Edition
 
 ---
 
-## 📱 Requirements
+## 🧩 Mod Loader Support
 
-- Android 8.0+
-- Minimum 2GB RAM
-- OpenGL ES 3.0+
+- ✅ Forge
+- ✅ Fabric
+- ✅ Quilt
+- ✅ NeoForge
+
+---
+
+## 📦 Built-in Installer
+
+Install everything directly inside the launcher:
+- 🔧 Mods (including PC-exclusive mods)
+- 🎨 Resource Packs
+- 🌟 Shaders
+- 🌍 Worlds / Save Files
+- 🧴 Skins
+
+---
+
+## 🖥️ PC Mods — Now Playable on Android
+
+Mods that were previously PC-only
+are now fully supported:
+- 📸 Flashback
+- 🌐 e4mc
+- 🌍 World Host
+- And more coming...
+
+---
+
+## 🎮 Minecraft Version Support
+
+Supports all versions from the very first
+release up to the latest snapshots:
+- Classic / Alpha / Beta
+- Release 1.0 → 1.21+
+- Snapshots
+- April Fools versions
 
 ---
 
@@ -53,14 +85,12 @@ Coming soon...
 
 | Role | Person |
 |---|---|
-| Lead Dev | @username_kau |
-| Android Dev | @username_kawan |
-| PC Build | @username_pc |
+| Lead Dev | @shampooor |
+| Android Dev | @Slanlee |
+| PC & Build | @PC_guy |
 
 ---
 
 ## 📄 License
 
 LGPL v3 — Based on PojavLauncher
-
-</div>
