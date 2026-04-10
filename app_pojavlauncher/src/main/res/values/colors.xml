@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Control Buttons -->
     <color name="control_button_color">#4C1565C0</color>
     <color name="control_button_pressed_color">#4D00B0FF</color>
 
-    <color name="minebutton_color">#00B0FF</color>
+    <!-- Main Button (Play/Launch) -->
+    <color name="minebutton_color">#1565C0</color>
+
+    <!-- Backgrounds -->
     <color name="background_app">#0A0E1A</color>
     <color name="divider">@color/background_overlay</color>
-    <color name="background_overlay">#0F1628</color>
-    <color name="background_status_bar">#0D47A1</color>
-    <color name="background_bottom_bar">#0A0E1A</color>
+    <color name="background_overlay">#0D2137</color>
+    <color name="background_status_bar">#050D1A</color>
+    <color name="background_bottom_bar">#0D1B2E</color>
 
+    <!-- Text -->
     <color name="primary_text">#FFFFFF</color>
-    <color name="secondary_text">#90CAF9</color>
+    <color name="secondary_text">#64B5F6</color>
 </resources>
