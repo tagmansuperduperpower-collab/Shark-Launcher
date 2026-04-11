@@ -55,6 +55,7 @@
         </activity>
         <activity
             android:name=".LauncherActivity"
+            android:screenOrientation="landscape"
             android:label="@string/app_short_name"
             android:windowSoftInputMode="adjustResize"/>
         <activity
@@ -109,7 +110,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation|uiMode"
             android:launchMode="singleTop"
             android:process=":game"
-            android:screenOrientation="sensorLandscape" />
+            android:screenOrientation="Landscape" />
 
         <provider
             android:name=".scoped.FolderProvider"
