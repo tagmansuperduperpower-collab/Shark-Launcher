@@ -88,7 +88,7 @@ configurations {
 }
 
 android {
-    namespace 'net.kdt.pojavlaunch'
+    namespace 'net.sharklauncher'
 
     compileSdk = 34
 
@@ -112,7 +112,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "net.kdt.pojavlaunch"
+        applicationId "net.sharklauncher"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode getDateSeconds()
