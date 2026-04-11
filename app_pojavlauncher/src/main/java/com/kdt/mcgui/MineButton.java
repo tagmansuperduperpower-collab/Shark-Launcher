@@ -23,29 +23,20 @@ public class MineButton extends androidx.appcompat.widget.AppCompatButton {
         setTypeface(ResourcesCompat.getFont(
             getContext(), R.font.noto_sans_bold));
         setBackground(ResourcesCompat.getDrawable(
-            getResources(), 
+            getResources(),
             R.drawable.mine_button_background, null));
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, 
+        setTextSize(TypedValue.COMPLEX_UNIT_PX,
             getResources().getDimensionPixelSize(R.dimen._13ssp));
         setTextColor(Color.WHITE);
-        setLetterSpacing(0.1f);
 
         setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    Animation pressAnim = AnimationUtils.loadAnimation(
-                        getContext(), R.anim.button_press);
-                    startAnimation(pressAnim);
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    Animation releaseAnim = new ScaleAnimation(
-                        0.95f, 1.0f, 0.95f, 1.0f,
-                        Animation.RELATIVE_TO_SELF, 0.5f,
-                        Animation.RELATIVE_TO_SELF, 0.5f);
-                    releaseAnim.setDuration(100);
-                    startAnimation(releaseAnim);
-                    break;
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animate().scaleX(0.95f).scaleY(0.95f)
+                    .setDuration(100).start();
+            } else if (event.getAction() == MotionEvent.ACTION_UP
+                    || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                animate().scaleX(1f).scaleY(1f)
+                    .setDuration(100).start();
             }
             return false;
         });
