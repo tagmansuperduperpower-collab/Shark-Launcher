@@ -22,6 +22,12 @@
 
 </div>
 
+> **Project status — archived / development paused**
+>
+> Dengan berat hati, pembangunan Shark Launcher dihentikan buat sementara waktu. Rombakan penuh daripada struktur legacy kepada UI Jetpack Compose Material 3 memerlukan kerja yang jauh lebih besar daripada jangkaan, khususnya kerana banyak dependency lama, native engine, authentication, installer, custom controls, dan lifecycle Android perlu dipisahkan tanpa menjejaskan kestabilan. Dalam keadaan semasa, meneruskan feature baharu akan menghasilkan terlalu banyak bug dan hutang teknikal. Repository ini diarkibkan sebagai rekod kerja dan rujukan; code, tag, release, serta APK yang telah diterbitkan masih tersedia untuk sesiapa yang ingin meneruskan projek ini pada masa akan datang.
+
+> Terima kasih kepada semua yang memberi idea, laporan bug, dan sokongan kepada projek ini. Ini bukan pemadaman projek, tetapi penutupan sementara sehingga ada masa dan struktur yang lebih sesuai untuk membinanya semula dengan betul.
+
 ---
 
 ## ✨ Features
