@@ -28,6 +28,26 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      # GitHub-hosted runners are disposable. Cache only the SDK components
+      # required by this project instead of committing the SDK into Git.
+      - name: Cache Android SDK components
+        id: android-sdk-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.ANDROID_SDK_ROOT }}/platforms
+            ${{ env.ANDROID_SDK_ROOT }}/build-tools
+            ${{ env.ANDROID_SDK_ROOT }}/ndk
+            ${{ env.ANDROID_SDK_ROOT }}/cmake
+            ${{ env.ANDROID_SDK_ROOT }}/licenses
+          key: android-sdk-${{ runner.os }}-api34-ndk25.2.9519653-v1
+
+      - name: Install Android SDK components on cache miss
+        if: steps.android-sdk-cache.outputs.cache-hit != 'true'
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0" "ndk;25.2.9519653"
+
       - name: Get LTW
         run: |
           apt update && apt install wget
