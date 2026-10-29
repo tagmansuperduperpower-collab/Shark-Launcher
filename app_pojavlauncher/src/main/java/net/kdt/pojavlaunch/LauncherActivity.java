@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewTreeLifecycleOwner;
 
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
@@ -180,6 +181,9 @@ public class LauncherActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pojav_launcher);
+        // Install the owner before the first Fragment transaction so Compose can
+        // resolve it during the initial view-attachment pass.
+        ViewTreeLifecycleOwner.set(findViewById(android.R.id.content), this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         // If we don't have a back stack root yet...
         if(fragmentManager.getBackStackEntryCount() < 1) {
