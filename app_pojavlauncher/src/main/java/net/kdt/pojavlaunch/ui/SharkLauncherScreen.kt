@@ -202,13 +202,14 @@ private fun SharkScaffold(
             }
         }
     ) { padding ->
+        val metrics = rememberSharkMetrics(wide)
         Column(
-            Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(horizontal = 18.dp, vertical = 14.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(metrics.screenPadding),
+            verticalArrangement = Arrangement.spacedBy(metrics.sectionGap)
         ) {
             AnimatedContent(targetState = selected, label = "section-transition") { section ->
                 when (section) {
-                    SharkSection.DASHBOARD -> DashboardContent(playScale, spinner, onSpinner, onPlay, onEditProfile, onOpenDirectory, onShareLogs, onCustomControls, onInstallJar = { onCustomControls() }, onWiki, onDiscord, onPrototypeRelease)
+                    SharkSection.DASHBOARD -> DashboardContent(metrics, playScale, spinner, onSpinner, onPlay, onEditProfile, onOpenDirectory, onShareLogs, onCustomControls, onInstallJar = { onCustomControls() }, onWiki, onDiscord, onPrototypeRelease)
                     else -> SectionContent(section, onOpenDirectory, onWiki, onDiscord)
                 }
             }
@@ -229,6 +230,7 @@ private fun SharkRail(items: List<SharkNavItem>, selected: SharkSection, onSelec
 
 @Composable
 private fun ColumnScope.DashboardContent(
+    metrics: SharkUiMetrics,
     playScale: Float, spinner: mcVersionSpinner?, onSpinner: (mcVersionSpinner) -> Unit, onPlay: () -> Unit,
     onEditProfile: (mcVersionSpinner) -> Unit, onOpenDirectory: () -> Unit, onShareLogs: () -> Unit,
     onCustomControls: () -> Unit, onInstallJar: () -> Unit, onWiki: () -> Unit, onDiscord: () -> Unit, onPrototypeRelease: () -> Unit
@@ -237,22 +239,22 @@ private fun ColumnScope.DashboardContent(
         Column(Modifier.weight(1f)) { Text("Welcome back, player", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium); Text("Ready to launch?", style = MaterialTheme.typography.headlineMedium) }
         StatusPill("ONLINE")
     }
-    PlayPanel(spinner, onSpinner, onEditProfile, onPlay, playScale)
+    PlayPanel(metrics, spinner, onSpinner, onEditProfile, onPlay, playScale)
     Text("QUICK ACCESS", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        QuickAction("Mods", "Install", Icons.Default.Code, Modifier.weight(1f), onInstallJar)
-        QuickAction("Folder", "Browse", Icons.Default.Folder, Modifier.weight(1f), onOpenDirectory)
-        QuickAction("Controls", "Configure", Icons.Default.Gamepad, Modifier.weight(1f), onCustomControls)
-        QuickAction("Logs", "Share", Icons.Default.Share, Modifier.weight(1f), onShareLogs)
+        QuickAction("Mods", "Install", Icons.Default.Code, Modifier.weight(1f), onInstallJar, metrics)
+        QuickAction("Folder", "Browse", Icons.Default.Folder, Modifier.weight(1f), onOpenDirectory, metrics)
+        QuickAction("Controls", "Configure", Icons.Default.Gamepad, Modifier.weight(1f), onCustomControls, metrics)
+        QuickAction("Logs", "Share", Icons.Default.Share, Modifier.weight(1f), onShareLogs, metrics)
     }
     PrototypeBanner(onPrototypeRelease)
     OutlinedCard(onClick = onWiki, Modifier.fillMaxWidth()) { Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) { FixedIcon(Icons.Default.Language, "Wiki", 22.dp); Spacer(Modifier.width(12.dp)); Column { Text("Zalith-inspired workspace", fontWeight = androidx.compose.ui.text.font.FontWeight.Bold); Text("Organized screens, responsive layout, and Material 3 motion", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall) } } }
 }
 
 @Composable
-private fun PlayPanel(spinner: mcVersionSpinner?, onSpinner: (mcVersionSpinner) -> Unit, onEditProfile: (mcVersionSpinner) -> Unit, onPlay: () -> Unit, scale: Float) {
+private fun PlayPanel(metrics: SharkUiMetrics, spinner: mcVersionSpinner?, onSpinner: (mcVersionSpinner) -> Unit, onEditProfile: (mcVersionSpinner) -> Unit, onPlay: () -> Unit, scale: Float) {
     Card(Modifier.fillMaxWidth().scale(scale), shape = MaterialTheme.shapes.large, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)) {
-        Row(Modifier.fillMaxWidth().padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(Modifier.fillMaxWidth().padding(metrics.cardPadding), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(9.dp)) {
                 Text("SELECTED INSTANCE", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
                 Text("Minecraft Java Edition", style = MaterialTheme.typography.titleLarge)
@@ -263,15 +265,15 @@ private fun PlayPanel(spinner: mcVersionSpinner?, onSpinner: (mcVersionSpinner) 
                 }
             }
             Spacer(Modifier.width(12.dp))
-            Button(onClick = onPlay, Modifier.width(150.dp).height(108.dp), shape = MaterialTheme.shapes.large, colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)) { Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) { FixedIcon(Icons.Default.PlayArrow, "Play", 30.dp); Text("PLAY NOW", fontWeight = androidx.compose.ui.text.font.FontWeight.Black) } }
+            Button(onClick = onPlay, Modifier.width(metrics.playWidth).height(metrics.playHeight), shape = MaterialTheme.shapes.large, colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)) { Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) { FixedIcon(Icons.Default.PlayArrow, "Play", 30.dp); Text("PLAY NOW", fontWeight = androidx.compose.ui.text.font.FontWeight.Black) } }
         }
     }
 }
 
 @Composable
-private fun QuickAction(title: String, subtitle: String, icon: ImageVector, modifier: Modifier, onClick: () -> Unit) {
-    Card(modifier.height(86.dp).clickable(onClick = onClick), shape = MaterialTheme.shapes.medium, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
-        Row(Modifier.fillMaxSize().padding(10.dp), verticalAlignment = Alignment.CenterVertically) { Box(Modifier.size(36.dp).background(MaterialTheme.colorScheme.secondaryContainer, MaterialTheme.shapes.small), contentAlignment = Alignment.Center) { FixedIcon(icon, title, 20.dp) }; Spacer(Modifier.width(8.dp)); Column { Text(title, style = MaterialTheme.typography.labelLarge); Text(subtitle, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) } }
+private fun QuickAction(title: String, subtitle: String, icon: ImageVector, modifier: Modifier, onClick: () -> Unit, metrics: SharkUiMetrics = CompactSharkMetrics) {
+    Card(modifier.height(metrics.actionHeight).clickable(onClick = onClick), shape = MaterialTheme.shapes.medium, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
+        Row(Modifier.fillMaxSize().padding(10.dp), verticalAlignment = Alignment.CenterVertically) { Box(Modifier.size(metrics.iconBox).background(MaterialTheme.colorScheme.secondaryContainer, MaterialTheme.shapes.small), contentAlignment = Alignment.Center) { FixedIcon(icon, title, 20.dp) }; Spacer(Modifier.width(8.dp)); Column { Text(title, style = MaterialTheme.typography.labelLarge); Text(subtitle, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) } }
     }
 }
 
