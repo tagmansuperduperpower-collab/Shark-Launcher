@@ -81,7 +81,7 @@ configurations {
 }
 
 android {
-    namespace 'net.sharklauncher'
+    namespace 'net.kdt.pojavlaunch'
 
     compileSdk = 34
 
