@@ -11,6 +11,7 @@ import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -809,7 +810,12 @@ public final class Tools {
 
     public static void openURL(Activity act, String url) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        act.startActivity(browserIntent);
+        try {
+            act.startActivity(browserIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(act, "No browser is available to open this link", Toast.LENGTH_LONG).show();
+            Log.w(APP_NAME, "No activity found to open URL: " + url, e);
+        }
     }
 
     private static boolean checkRules(JMinecraftVersionList.Arguments.ArgValue.ArgRules[] rules) {
