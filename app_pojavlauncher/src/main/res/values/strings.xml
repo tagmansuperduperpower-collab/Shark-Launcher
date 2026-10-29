@@ -3,6 +3,9 @@
     <!-- App name part -->
     <string name="app_name">SharkLauncher</string>
     <string name="app_short_name">SharkLauncher</string>
+    <string name="shark_launcher_title">SHARK LAUNCHER</string>
+    <string name="shark_launcher_subtitle">Navigate your Minecraft worlds</string>
+    <string name="shark_compass_content_description">Animated Shark Launcher compass</string>
 
     <!-- Action bar part -->
 
