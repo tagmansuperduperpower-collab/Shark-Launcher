@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.compose.ui.platform.ComposeView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewTreeLifecycleOwner;
 
 import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.R;
@@ -52,6 +53,14 @@ public class MainMenuFragment extends Fragment {
             }
         });
         return composeView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Compose needs the Fragment view lifecycle owner when the ComposeView is the
+        // fragment root. Set it before FragmentContainerView attaches the view.
+        ViewTreeLifecycleOwner.set(view, getViewLifecycleOwner());
     }
 
     private void openCurrentDirectory() {
