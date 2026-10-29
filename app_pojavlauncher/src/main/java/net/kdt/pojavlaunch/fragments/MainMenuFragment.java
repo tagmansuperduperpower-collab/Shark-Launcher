@@ -36,6 +36,10 @@ public class MainMenuFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         ComposeView composeView = new ComposeView(requireContext());
+        // This view is the fragment root and is attached before onViewCreated can
+        // reliably provide a view-lifecycle owner. Install the Fragment owner first
+        // so Compose can create its window recomposer during attachment.
+        ViewTreeLifecycleOwner.set(composeView, this);
         SharkLauncherHomeKt.attachHomeContent(composeView, new HomeActions() {
             @Override public void onSettings() {
                 Tools.swapFragment(requireActivity(), LauncherPreferenceFragment.class, "SETTINGS_FRAGMENT", null);
@@ -53,14 +57,6 @@ public class MainMenuFragment extends Fragment {
             }
         });
         return composeView;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        // Compose needs the Fragment view lifecycle owner when the ComposeView is the
-        // fragment root. Set it before FragmentContainerView attaches the view.
-        ViewTreeLifecycleOwner.set(view, getViewLifecycleOwner());
     }
 
     private void openCurrentDirectory() {
