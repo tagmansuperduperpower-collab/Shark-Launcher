@@ -47,6 +47,9 @@ public class MainMenuFragment extends Fragment {
             @Override public void onWiki() { Tools.openURL(requireActivity(), Tools.URL_HOME); }
             @Override public void onDiscord() { Tools.openURL(requireActivity(), getString(R.string.discord_invite)); }
             @Override public void onEditProfile(com.kdt.mcgui.mcVersionSpinner spinner) { spinner.openProfileEditor(requireActivity()); }
+            @Override public void onPrototypeRelease() {
+                Tools.openURL(requireActivity(), "https://github.com/tagmansuperduperpower-collab/Shark-Launcher/releases/tag/v0.0.0.1");
+            }
         });
         return composeView;
     }

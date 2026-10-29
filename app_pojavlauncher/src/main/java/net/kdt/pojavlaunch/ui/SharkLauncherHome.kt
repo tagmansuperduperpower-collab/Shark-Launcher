@@ -2,6 +2,7 @@ package net.kdt.pojavlaunch.ui
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Gamepad
 import androidx.compose.material.icons.filled.Info
@@ -80,6 +82,7 @@ interface HomeActions {
     fun onWiki()
     fun onDiscord()
     fun onEditProfile(spinner: mcVersionSpinner)
+    fun onPrototypeRelease()
 }
 
 @JvmOverloads
@@ -88,7 +91,7 @@ fun attachHomeContent(view: ComposeView, actions: HomeActions) {
         SharkLauncherHome(
             actions::onSettings, actions::onInformation, actions::onInstallJar,
             actions::onOpenDirectory, actions::onShareLogs, actions::onCustomControls,
-            actions::onWiki, actions::onDiscord, actions::onEditProfile
+            actions::onWiki, actions::onDiscord, actions::onEditProfile, actions::onPrototypeRelease
         )
     }
 }
@@ -104,7 +107,8 @@ fun SharkLauncherHome(
     onCustomControls: () -> Unit,
     onWiki: () -> Unit,
     onDiscord: () -> Unit,
-    onEditProfile: (mcVersionSpinner) -> Unit
+    onEditProfile: (mcVersionSpinner) -> Unit,
+    onPrototypeRelease: () -> Unit
 ) {
     var spinner by remember { mutableStateOf<mcVersionSpinner?>(null) }
     var showInformation by remember { mutableStateOf(false) }
@@ -164,6 +168,24 @@ fun SharkLauncherHome(
                                 Spacer(Modifier.width(8.dp))
                                 Text("PLAY MINECRAFT", fontWeight = FontWeight.Bold)
                             }
+                        }
+                    }
+                }
+                item {
+                    Card(
+                        onClick = onPrototypeRelease,
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFF174E70)),
+                        shape = RoundedCornerShape(18.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Default.Download, null, tint = Color(0xFF8BD3FF))
+                            Spacer(Modifier.width(14.dp))
+                            Column(Modifier.weight(1f)) {
+                                Text("Prototype release v0.0.0.1", color = Color.White, fontWeight = FontWeight.Bold)
+                                Text("Download the latest test APK from GitHub", color = Color(0xFFB7DDF2), fontSize = 13.sp)
+                            }
+                            Text("OPEN", color = Color(0xFF8BD3FF), fontWeight = FontWeight.Bold, fontSize = 12.sp)
                         }
                     }
                 }
