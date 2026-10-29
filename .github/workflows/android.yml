@@ -8,7 +8,12 @@ on:
   push:
     branches-ignore:
       - 'l10n_v3_openjdk2'
+    tags:
+      - 'v*'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -112,6 +117,20 @@ jobs:
         run: |
           gradle assembleDebug
           mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug-noruntime.apk
+
+      - name: Prepare prototype release APK
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: cp out/app-debug.apk "out/SharkLauncher-${{ github.ref_name }}-prototype.apk"
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Shark Launcher ${{ github.ref_name }} Prototype
+          tag_name: ${{ github.ref_name }}
+          prerelease: true
+          generate_release_notes: true
+          files: out/SharkLauncher-${{ github.ref_name }}-prototype.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
