@@ -4,7 +4,7 @@
     <string name="app_name">Shark Launcher</string>
     <string name="app_short_name">Shark Launcher</string>
     <string name="shark_launcher_title">SHARK LAUNCHER</string>
-    <string name="shark_launcher_subtitle">Prototype update • v0.0.0.2</string>
+    <string name="shark_launcher_subtitle">Prototype update • v0.0.0.3</string>
     <string name="information_title">About Shark Launcher</string>
     <string name="information_prototype">This project is still in the prototype stage.</string>
     <string name="information_attribution">Based on the PojavLauncher codebase. This is not made entirely from scratch; credit belongs to the original project and its contributors.</string>

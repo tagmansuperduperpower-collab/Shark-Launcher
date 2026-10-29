@@ -109,8 +109,8 @@ android {
         applicationId "net.sharklauncher"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 2
-        versionName "0.0.0.2"
+        versionCode 3
+        versionName "0.0.0.3"
         multiDexEnabled true
         resValue 'string', 'curseforge_api_key', getCFApiKey()
     }
